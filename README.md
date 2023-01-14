@@ -7,4 +7,4 @@ Colby (E2) (S10) airs at 09:00
 
 One Becomes Three (E2) (S34) airs at 10:00
 
-ect..
+Feel free to modify the tcl... needs some improvements.
