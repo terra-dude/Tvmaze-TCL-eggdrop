@@ -23,7 +23,23 @@ bind pub - !today pub:announce
 proc pub:announce {nick host handle chan arg} {
     set now [clock seconds]
     set date [clock format $now -format "%Y-%m-%d"]
-    set url "http://api.tvmaze.com/schedule?country=US&date=$date"
+         set country "US"
+     if {$arg eq "US"} {
+         set country "US"
+     } elseif {$arg eq "NL"} {
+         set country "NL"
+     } elseif {$arg eq "GB"} {
+         set country "GB"
+     } elseif {$arg eq "CA"} {
+         set country "CA"
+     } elseif {$arg eq "AU"} {
+         set country "AU"
+#Note that contrary to what you might expect, the ISO country code for the United Kingdom is not UK, but GB. 
+     } else {
+        putquick "PRIVMSG $chan : Invalid country code. Use !tv US, GB, NL, CA, AU"
+        return
+     }
+    set url "http://api.tvmaze.com/schedule?country=$country&date=$date"
     set response [http::geturl $url]
     set data [http::data $response]
     set shows [json::json2dict $data]
