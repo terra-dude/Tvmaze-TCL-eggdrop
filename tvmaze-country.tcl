@@ -9,7 +9,7 @@
 # Update: trigger from !tv to !today           # 
 # Improvement: Now shows Network if NULL       #
 # Improvement: Skip Words                      #
-# country code. Use !tv US, GB, NL, CA, AU     #
+# country code. Use !today US, GB, NL, CA, AU  #
 ################################################
 
 #### Package needed
