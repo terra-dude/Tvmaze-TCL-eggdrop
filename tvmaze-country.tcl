@@ -36,7 +36,7 @@ proc pub:announce {nick host handle chan arg} {
          set country "AU"
 #Note that contrary to what you might expect, the ISO country code for the United Kingdom is not UK, but GB. 
      } else {
-        putquick "PRIVMSG $chan : Invalid country code. Use !tv US, GB, NL, CA, AU"
+        putquick "PRIVMSG $chan : Invalid country code. Use !today US, GB, NL, CA, AU"
         return
      }
     set url "http://api.tvmaze.com/schedule?country=$country&date=$date"
@@ -74,4 +74,4 @@ proc pub:announce {nick host handle chan arg} {
 
     }
 }
-putlog "Loaded tvmaze todays schedule countrys script v1.0.1 Beta"
+putlog "Loaded tvmaze todays schedule check countrys script v2.0.1 Beta"
