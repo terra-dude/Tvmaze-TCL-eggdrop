@@ -1,7 +1,7 @@
 ################################################
 # This Script is writed by TeRRaNoVA           #
 # Tvmaze today's schedule script with countrys #
-# 2023-01-29 v.2.0.1 Beta                      #
+# 2023-01-29 v.2.0.2 Beta                      #
 #                                              #
 # CHANGELOG:---------------------------------- #
 # Fixed: Clock/date now gets correct date      #
@@ -46,10 +46,10 @@ proc pub:announce {nick host handle chan arg} {
     set count 0
     set announcement_count 0
     set skip_words { "Episode" "0 and 2."}
-    putquick "PRIVMSG $chan :  Here is the TV schedule for today:"
+    putquick "PRIVMSG $chan : Here is the TV schedule for $country today:"
     foreach show $shows {
         if {$announcement_count == 10} {
-    putquick "PRIVMSG $chan :  Hold on there is more......"
+    putquick "PRIVMSG $chan : Hold on there is more......"
             after 5000
             set announcement_count 0
         }
@@ -65,13 +65,13 @@ proc pub:announce {nick host handle chan arg} {
         set number [dict get $show "number"]
         set time [dict get $show "airtime"]
         if {[lsearch -exact $skip_words $name] == -1} {
-   putquick "PRIVMSG $chan :  $name \(S$season E$number\) airs at $time on $network"
+   putquick "PRIVMSG $chan : $name \(S$season/E$number\) airs at $time on $network"
         incr count
             incr announcement_count
         }
     }
+  }
 }
-
-    }
+   putquick "PRIVMSG $chan : End of TV schedule list for today $date. Checking for new shows tomorrow......
 }
-putlog "Loaded tvmaze todays schedule check countrys script v2.0.1 Beta"
+putlog "Loaded tvmaze todays schedule check countrys script v2.0.2 Beta"
