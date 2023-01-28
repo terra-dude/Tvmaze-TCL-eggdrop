@@ -1,8 +1,8 @@
 # Tvmaze-TCL-eggdrop
 
-TVmaze.tcl to grab daily shows and announce it to a #channel
+TVmaze.tcl to grab daily shows and announce it to a #channel with !tv
 
-TVmaze-country.tcl to grab daily shows and announce it to a #channel from US/HB/NL/CA/AU 
+TVmaze-country.tcl to grab daily shows and announce it to a #channel from example: !tv US/GB/NL/CA/AU 
 
 The schedule is a complete list of episodes that air in a given country on a given date. 
 Episodes are returned in the order in which they are aired, and full information about the episode and the corresponding show is included. 
