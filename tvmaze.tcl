@@ -1,7 +1,7 @@
 ################################################
 # This Script is writed by TeRRaNoVA           #
 # Tvmaze today's schedule script               #
-# 2023-01-29 v.1.0.2 Beta                      #
+# 2023-01-29 v.1.0.3 Beta                      #
 #                                              #
 # CHANGELOG:---------------------------------- #
 # Fixed: Clock/date now gets correct date      #
@@ -10,6 +10,7 @@
 # Improvement: Now shows Network if NULL       #
 # Improvement: Skip Words                      #
 # Imp/Fix: Endline / Removed Space             #
+# Update: Pm user or Channel 1 0               #
 ################################################
 
 #### Package needed
@@ -21,6 +22,7 @@ bind pub - !today pub:announce
 
 ######## DONT EDIT BELOW UNLESS YOU KNOW WAT YOUR DOING ###########
 proc pub:announce {nick host handle chan arg} {
+    set priv_msg_enabled 0 #set this to 0 or 1 to announce channel of user
     set now [clock seconds]
     set date [clock format $now -format "%Y-%m-%d"]
     set url "http://api.tvmaze.com/schedule?country=US&date=$date"
@@ -30,10 +32,15 @@ proc pub:announce {nick host handle chan arg} {
     set count 0
     set announcement_count 0
     set skip_words { "Episode" "0 and 2."}
-    putquick "PRIVMSG $chan : Here is the TV schedule for today US:"
+    set output_location [expr {$priv_msg_enabled ? "PRIVMSG $nick" : "PRIVMSG $chan"}]
+    if {$priv_msg_enabled == 1} {
+       putquick "PRIVMSG $user : Here is the TV schedule for today US:"
+    } else {
+       putquick "PRIVMSG $chan : Here is the TV schedule for today US:"
+    }
     foreach show $shows {
         if {$announcement_count == 10} {
-    putquick "PRIVMSG $chan : Hold on there is more......"
+    putquick "$output_location : Hold on there is more......"
             after 5000
             set announcement_count 0
         }
@@ -49,13 +56,13 @@ proc pub:announce {nick host handle chan arg} {
         set number [dict get $show "number"]
         set time [dict get $show "airtime"]
         if {[lsearch -exact $skip_words $name] == -1} {
-   putquick "PRIVMSG $chan : $name \(S$season/E$number\) airs at $time on $network"
+   putquick "$output_location : $name \(S$season/E$number\) airs at $time on $network"
         incr count
             incr announcement_count
         }
     }
 }
 }
-putquick "PRIVMSG $chan : End of TV schedule list for today $date. Checking for new shows tomorrow......
+putquick "$output_location : End of TV schedule list for today $date. Checking for new shows tomorrow......
 }
-putlog "Loaded tvmaze todays schedule script v1.0.2 Beta"
+putlog "Loaded tvmaze todays schedule script v1.0.3 Beta"
